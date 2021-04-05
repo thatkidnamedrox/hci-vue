@@ -6,7 +6,7 @@ A simple vue project that subscribes to the `/frames` websocket and prints out t
 
 Uses a [Vuex](https://vuex.vuejs.org/) store for the global state.
 
-Modify [/src/main.js](/src/main.js) to parse incoming messages and make them available as global state to your app.
+Modify [/src/main.js](https://github.com/yale-img/hci-vue/blob/6d62937674a01b8e1dc111a6c8cc303ff2c44561/src/main.js#L30) to parse incoming messages and make them available as global state to your app.
 
 ## Project setup
 ```
