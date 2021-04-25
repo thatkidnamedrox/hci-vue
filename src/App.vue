@@ -1,17 +1,16 @@
 <template>
   <div id="app">
-    <img alt="Display" src="./assets/display.png">
-    <PeopleCounter/>
+    <Home/>
   </div>
 </template>
 
 <script>
-import PeopleCounter from './components/PeopleCounter.vue'
+import Home from './views/Home.vue'
 
 export default {
   name: 'App',
   components: {
-    PeopleCounter
+    Home,
   }
 }
 </script>
