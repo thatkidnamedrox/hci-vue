@@ -21,8 +21,7 @@ export default {
   },
   data() {
     return {
-      moodboard: true, // link this to store.whatever variable we get from the pose 
-      // {this.$store.state.people.pose}
+      moodboard: !this.$store.state.pose,
     }
   },
 }
