@@ -25,7 +25,8 @@ const store = new Vuex.Store({
       good: 0,
       neutral: 0,
       bad: 0
-    }
+    },
+    moodboard: true
   },
   mutations:{
     SOCKET_ONOPEN (state, event)  {
@@ -53,22 +54,23 @@ const store = new Vuex.Store({
           distances.push(person.avg_position[2]);
         }
         let minimum = Math.min(...distances);
-        let idx = keys[distances.indexOf(minimum)]
-
-
-        let person = null;
+        
+        // console.log(minimum);
         // 2300
-        if (minimum > 2500) {
+        if (minimum > 3200) {
+          state.moodboard = true;
           return;
         }
-        else {
-          person = message.people[idx];
-        }
 
-        console.log(state.data.overall)
+        let idx = keys[distances.indexOf(minimum)]
+    
+        let person = message.people[idx];
+      
+
+        // console.log(state.data.overall)
 
         let keypoints = person.keypoints;
-        console.log(keypoints);
+        // console.log(keypoints);
 
         let LWrist = keypoints.LWrist;
         let RWrist = keypoints.RWrist;
@@ -76,6 +78,8 @@ const store = new Vuex.Store({
         let RHip = keypoints.RHip;
         let LAnkle = keypoints.LAnkle;
         let RAnkle = keypoints.RAnkle;
+        // let LElbow = keypoints.LElbow;
+        // let RElbow = keypoints.RElbow;
         // let Nose = keypoints.Nose;
         let LShoulder = keypoints.LShoulder;
 
@@ -84,16 +88,15 @@ const store = new Vuex.Store({
           c[0] = Math.abs(a[0] - b[0])
           c[1] = Math.abs(a[1] - b[1])
           c[2] = Math.abs(a[2] - b[2])
-
-          let diff = 100;
+         
           if (d == 0) {
-            return c[0] < diff && c[1] < diff && c[2] < diff;
+            return c[0] < 120;
           }
           else if (d == 1) {
-            return a[1] > b[1];
+            return a[1] < b[1];
           }
           else if (d == 2) {
-            return c[0] > 400;
+            return c[0] > 300;
           }
           else {
             return false;
@@ -111,8 +114,10 @@ const store = new Vuex.Store({
         // for navigation
         // let rightHandRaise = compare(RWrist, LShoulder, 1);
         // let leftHandRaise = compare(LWrist. LShoulder, 1);
-        console.log(person);
+        // console.log(person);
+        // console.log(good, bad, neutral);
         state.pose = neutral || bad || good;
+        console.log(state.pose);
         if (neutral) {
           state.mood = "Neutral";
           state.data.neutral += 1;
@@ -124,12 +129,18 @@ const store = new Vuex.Store({
         else if (good) {
           state.mood = "Good";
           state.data.good += 1;
-
         }
         else {
           state.mood = "How are you feeling?"
           state.pose = false;
         }
+
+        if (state.pose) {
+          state.moodboard = false;
+        }
+
+
+        // if 
       } else {
         state.people.count = 0;
       }
@@ -148,7 +159,7 @@ const store = new Vuex.Store({
 
 
 import VueNativeSock from 'vue-native-websocket'
-Vue.use(VueNativeSock, 'ws://172.29.41.16:8888/frames', {
+Vue.use(VueNativeSock, 'ws://172.28.142.145:8888/frames', {
   format: 'json',
   store: store,
   reconnection: true, // (Boolean) whether to reconnect automatically (false)

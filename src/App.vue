@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="moodboard">
+    <div v-if="this.$store.state.moodboard">
       <Home/>
     </div>
     <div v-else>
