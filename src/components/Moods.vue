@@ -5,7 +5,7 @@
       <b-col>
         <b-card
           title="Feeling meh?"
-          img-src="https://picsum.photos/600/300/?image=25"
+          img-src="../assets/bad.png"
           img-alt="Image"
           img-top
           tag="article"
@@ -24,7 +24,7 @@
       <b-col>
         <b-card
           title="Feeling ok?"
-          img-src="https://picsum.photos/600/300/?image=25"
+          img-src="../assets/okay.png"
           img-alt="Image"
           img-top
           tag="article"
@@ -43,7 +43,7 @@
       <b-col>
         <b-card
           title="Feeling good?"
-          img-src="https://picsum.photos/600/300/?image=25"
+          img-src="../assets/good.png"
           img-alt="Image"
           img-top
           tag="article"
