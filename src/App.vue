@@ -4,20 +4,20 @@
       <Home/>
     </div>
     <div v-else>
-      <LeslieView/>
+      <DataDisplay/>
     </div>
   </div>
 </template>
 
 <script>
 import Home from './views/Home.vue'
-import LeslieView from './views/LeslieView.vue'
+import DataDisplay from './views/DataDisplay.vue'
 
 export default {
   name: 'App',
   components: {
     Home,
-    LeslieView,
+    DataDisplay,
   },
   data() {
     return {
