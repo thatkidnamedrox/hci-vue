@@ -76,8 +76,7 @@ export default {
   },
   data() {
     return {
-      unposed: true, // link this to store.whatever variable we get from the pose 
-      // {this.$store.state.people.pose}
+      unposed: !this.$store.state.pose, 
     }
   },
 }

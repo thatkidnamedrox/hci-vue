@@ -16,6 +16,15 @@ const store = new Vuex.Store({
     },
     people: {
       count: 0,
+        ids: [],
+        distances: []
+    },
+    mood: "How are you feeling?",
+    pose: false,
+    data: {
+      good: 0,
+      neutral: 0,
+      bad: 0
     }
   },
   mutations:{
@@ -33,7 +42,94 @@ const store = new Vuex.Store({
     SOCKET_ONMESSAGE (state, message)  {
       // TODO: handle incoming people message here
       if (message.people) {
-        state.people.count = Object.keys(message.people).length;
+        var keys = Object.keys(message.people);
+        state.people.count = keys.length;
+        // to refine: range of approximation, which person can we track...
+
+        // to implement: come closer... 1 
+        let distances = [];
+        for (var i = 0; i < state.people.count; i++) {
+          let person = message.people[keys[i]];
+          distances.push(person.avg_position[2]);
+        }
+        let minimum = Math.min(...distances);
+        let idx = keys[distances.indexOf(minimum)]
+
+
+        let person = null;
+        // 2300
+        if (minimum > 2500) {
+          return;
+        }
+        else {
+          person = message.people[idx];
+        }
+
+        console.log(state.data.overall)
+
+        let keypoints = person.keypoints;
+        console.log(keypoints);
+
+        let LWrist = keypoints.LWrist;
+        let RWrist = keypoints.RWrist;
+        let LHip = keypoints.LHip;
+        let RHip = keypoints.RHip;
+        let LAnkle = keypoints.LAnkle;
+        let RAnkle = keypoints.RAnkle;
+        // let Nose = keypoints.Nose;
+        let LShoulder = keypoints.LShoulder;
+
+        let compare = (a, b, d) => {
+          let c = [0,0,0]
+          c[0] = Math.abs(a[0] - b[0])
+          c[1] = Math.abs(a[1] - b[1])
+          c[2] = Math.abs(a[2] - b[2])
+
+          let diff = 100;
+          if (d == 0) {
+            return c[0] < diff && c[1] < diff && c[2] < diff;
+          }
+          else if (d == 1) {
+            return a[1] > b[1];
+          }
+          else if (d == 2) {
+            return c[0] > 400;
+          }
+          else {
+            return false;
+          }
+        }
+
+
+        // neutral => hands on hips
+        // good => above head
+        // bad => spread legs
+        let neutral = compare(LWrist, LHip, 0) && compare(RWrist, RHip, 0);
+        let good = compare(LWrist, LShoulder, 1) && compare(RWrist, LShoulder, 1);
+        let bad = compare(LAnkle, RAnkle, 2);
+
+        // for navigation
+        // let rightHandRaise = compare(RWrist, LShoulder, 1);
+        // let leftHandRaise = compare(LWrist. LShoulder, 1);
+        console.log(person);
+        state.pose = neutral || bad || good;
+        if (neutral) {
+          state.mood = "Neutral";
+          state.data.neutral += 1;
+        }
+        else if (bad) {
+          state.mood = "Bad";
+          state.data.bad += 1;
+        }
+        else if (good) {
+          state.mood = "Good";
+          state.data.good += 1;
+
+        }
+        else {
+          state.mood = "How are you feeling?"
+          state.pose = false;
+        }
       } else {
         state.people.count = 0;
       }
