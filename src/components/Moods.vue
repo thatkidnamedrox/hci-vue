@@ -1,5 +1,5 @@
 <template>
-<div v-if="unposed">
+<div>
   <b-container>
     <b-row>
       <b-col>
@@ -61,10 +61,6 @@
       </b-col>
     </b-row>
     </b-container>
-  </div>
-  <div v-else>
-      <b>Thank you for posing!</b>
-      <b>You can stop posing now.</b>
   </div>
 </template>
 
