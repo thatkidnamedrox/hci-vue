@@ -1,6 +1,6 @@
 <template>
-
-  <div id='vis' style='width:1366px;'>
+  
+  <div id='vis' style='width:1366px;' v-if="mehsize">
        <svg class='chart-outer'><g class='chart'></g></svg>
        <span :style="userStyle" class="meh"></span>
        <span :style="userStyle" class="okay"></span>
@@ -16,9 +16,10 @@ export default {
   name: 'DataViz',
     data () {
     return {
-      mehsize: 100,
-      okaysize: 190,
-      goodsize: 350
+      total: (this.$store.state.data.bad + this.$store.state.data.neutral + this.$store.state.data.good) * 100,
+      mehsize: this.$store.state.data.bad / this.total,
+      okaysize: this.$store.state.data.neutral / this.total,
+      goodsize: this.$store.state.data.good / this.total,
     }
   },
   computed: {
