@@ -10,7 +10,7 @@
           img-top
           tag="article"
           style="max-width: 20rem;"
-          class="mb-2">
+          class="mb-pink">
           <b-card-text>
             Bad days happen, maybe more often in a pandemic. Pose to cheer up.
             <b-list-group>
@@ -29,7 +29,8 @@
           img-top
           tag="article"
           style="max-width: 20rem;"
-          class="mb-2">
+          class="mb-green"
+         >
           <b-card-text>
             That's good! Pose to upgrade your mood.
             <b-list-group>
@@ -48,7 +49,7 @@
           img-top
           tag="article"
           style="max-width: 20rem;"
-          class="mb-2">
+          class="mb-yellow">
           <b-card-text>
             That's awesome! Pose to spread joy on campus.
             <b-list-group>
@@ -86,6 +87,19 @@ container {
   justify-content: flex-start;
   align-self: flex-end;
 }
+
+.mb-pink {
+  background-color: #FFB6C1;
+}
+
+.mb-green {
+  background-color: #90EE90;
+}
+
+.mb-yellow {
+  background-color: #FFFF99;
+}
+
 
 b {
   font-size: large;

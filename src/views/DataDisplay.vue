@@ -3,6 +3,7 @@
     <DataVizHead/>
     <DataViz/>
     <DataVizFooter/>
+    <FooterData/>
   </div>
 </template>
 
@@ -10,12 +11,15 @@
 import DataViz from '../components/DataViz.vue'
 import DataVizHead from '../components/DataVizHead.vue'
 import DataVizFooter from '../components/DataVizFooter.vue'
+import FooterData from '../components/FooterData.vue'
+
 export default {
   name: 'DataDisplay',
   components: {
     DataVizHead,
     DataViz,
-    DataVizFooter
+    DataVizFooter,
+    FooterData
   }
 }
 </script>

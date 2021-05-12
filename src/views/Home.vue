@@ -1,22 +1,19 @@
 <template>
   <div id="app">
-    <Header/>
     <Moods/>
-    <Footer/>
+    <FooterMoods/>
   </div>
 </template>
 
 <script>
-import Header from '../components/Header.vue'
 import Moods from '../components/Moods.vue'
-import Footer from '../components/Footer.vue'
+import FooterMoods from '../components/FooterMoods.vue'
 
 export default {
   name: 'Home',
   components: {
-    Header,
     Moods,
-    Footer
+    FooterMoods
   }
 }
 </script>

@@ -25,7 +25,10 @@ const store = new Vuex.Store({
       good: 0,
       neutral: 0,
       bad: 0
-    }
+    },
+    closeEnough: false,
+    showDataViz: false,
+    backtoMoods: false,
   },
   mutations:{
     SOCKET_ONOPEN (state, event)  {
@@ -59,10 +62,12 @@ const store = new Vuex.Store({
         let person = null;
         // 2300
         if (minimum > 2500) {
+          state.closeEnough = false;
           return;
         }
         else {
           person = message.people[idx];
+          state.closeEnough = true;
         }
 
         console.log(state.data.overall)
@@ -108,9 +113,19 @@ const store = new Vuex.Store({
         let good = compare(LWrist, LShoulder, 1) && compare(RWrist, LShoulder, 1);
         let bad = compare(LAnkle, RAnkle, 2);
 
-        // for navigation
-        // let rightHandRaise = compare(RWrist, LShoulder, 1);
-        // let leftHandRaise = compare(LWrist. LShoulder, 1);
+        // for navigation, we could just use one...
+        let rightHandRaise = compare(RWrist, LShoulder, 1);
+        let leftHandRaise = compare(LWrist. LShoulder, 1);
+
+        if (rightHandRaise && !leftHandRaise) {
+          state.showDataViz = true;
+          state.backtoMoods = false;
+        }
+        if (leftHandRaise && !rightHandRaise) {
+          state.showDataViz = false;
+          state.backtoMoods = true;
+        }
+
         console.log(person);
         state.pose = neutral || bad || good;
         if (neutral) {

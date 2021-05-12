@@ -1,15 +1,19 @@
 <template>
   <div>
-    <div v-if="moodboard">
+    <div v-if="!closeEnough">
+      <Welcome/>
+    </div>
+    <div v-else-if="moodboard || leftHand">
       <Home/>
     </div>
-    <div v-else>
+    <div v-else-if="!moodboard || rightHand">
       <DataDisplay/>
     </div>
   </div>
 </template>
 
 <script>
+import Welcome from './views/Welcome.vue'
 import Home from './views/Home.vue'
 import DataDisplay from './views/DataDisplay.vue'
 
@@ -18,10 +22,14 @@ export default {
   components: {
     Home,
     DataDisplay,
+    Welcome,
   },
   data() {
     return {
+      closeEnough: this.$store.state.closeEnough,
       moodboard: !this.$store.state.pose,
+      leftHand: this.$store.state.backtoMoods,
+      rightHand: this.$store.state.showDataViz,
     }
   },
 }
