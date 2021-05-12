@@ -3,7 +3,7 @@ var moment = require('moment');
 <template>
   <header>
       <h1>Check out the campus vibes for today, {{currentDateTime()}}!</h1>
-      <h2>Thank you for participating!</h2>
+      <h2>Good vibes today!!</h2>
   </header>
 </template>
 

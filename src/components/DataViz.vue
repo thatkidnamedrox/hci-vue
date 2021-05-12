@@ -1,5 +1,5 @@
 <template>
-
+  
   <div id='vis' style='width:1366px;'>
        <svg class='chart-outer'><g class='chart'></g></svg>
        <span :style="userStyle" class="meh"></span>
@@ -16,9 +16,11 @@ export default {
   name: 'DataViz',
     data () {
     return {
-      mehsize: 100,
-      okaysize: 190,
-      goodsize: 350
+      total: (this.$store.state.data.bad + this.$store.state.data.neutral + this.$store.state.data.good) * 100,
+      mehsize: (this.$store.state.data.bad * 500) / this.$store.state.people.count,
+      okaysize: (this.$store.state.data.neutral * 500) / this.$store.state.people.count,
+      goodsize: (this.$store.state.data.good * 500) / this.$store.state.people.count
+       ,
     }
   },
   computed: {
@@ -26,7 +28,7 @@ export default {
       return {
         '--meh-size': this.mehsize + 'px',
         '--okay-size': this.okaysize + 'px',
-        '--good-size': this.goodsize + 'px'
+        '--good-size': this.goodsize  + 'px'
       }
     }
 }

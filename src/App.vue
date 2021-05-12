@@ -3,10 +3,10 @@
     <div v-if="!closeEnough">
       <Welcome/>
     </div>
-    <div v-else-if="moodboard || leftHand">
+    <div v-else-if="closeEnough && (moodboard || leftHand)">
       <Home/>
     </div>
-    <div v-else-if="!moodboard || rightHand">
+    <div v-else-if="closeEnough && (!moodboard || rightHand)">
       <DataDisplay/>
     </div>
   </div>
